@@ -1,16 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/product-details.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/components/container.dart';
-import 'package:grocery_app/controller/components/welcome_button.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/controller/utils/constants/appicons/app_icons.dart';
-import 'package:grocery_app/controller/utils/constants/appimages/app_images_widget.dart';
-import 'package:grocery_app/view/home_view/cart-screen/cart.dart';
-import 'package:grocery_app/view/home_view/categaries_screen/categaries_screen.dart';
-import 'package:grocery_app/view/home_view/favorities-screen/favourite.dart';
-import 'package:grocery_app/view/home_view/featured_screen/featured_screen.dart';
-import 'package:grocery_app/view/starting_view/splash_view/splash_screen.dart';
+
+
+import '../../../linker/linker.dart';
+
+
+
+
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 

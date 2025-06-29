@@ -1,12 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/green_text_button.dart';
-import 'package:grocery_app/controller/components/password-feild.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/controller/components/textfield.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/controller/utils/constants/appicons/app_icons.dart';
-import '../../../controller/utils/constants/appimages/app_images_widget.dart';
+
+
+import '../../../linker/linker.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   @override
