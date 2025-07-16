@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/grid_list.dart';
-import 'package:grocery_app/model/product_model/grid_product_list.dart';
 
-import '../../../controller/utils/constants/appicons/app_icons.dart';
+import '../../../linker/linker.dart';
+
 class VegitableScreen extends StatelessWidget {
    VegitableScreen({super.key});
   List<GridContainer> gridProduct=[

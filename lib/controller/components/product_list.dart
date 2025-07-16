@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/model/product_model/product_list_model.dart';
 
-import '../utils/constants/appcolors/app_color.dart';
+
+
+import '../../linker/linker.dart';
+
 class ListItems extends StatefulWidget {
   final List<ProductList> products;
   const ListItems({super.key, required this.products});

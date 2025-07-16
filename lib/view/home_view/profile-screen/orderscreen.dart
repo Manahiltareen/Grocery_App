@@ -1,8 +1,6 @@
-import 'package:flutter/ma''terial.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/controller/utils/constants/appicons/app_icons.dart';
+
+import '../../../linker/linker.dart';
+
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
 

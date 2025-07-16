@@ -1,5 +1,7 @@
 
 
+import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
+
 import '../../../linker/linker.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,6 +11,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
+  AuthController SigninController = AuthController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +70,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             ]
                         ),
                         SizedBox(height: 25,),
-                        GreenTextButton(text: 'Login', ontap: (){}),
+                        Obx(
+                          (){
+                            if (SigninController.isloading.istrue){
+                            return CircularProgressIndicator();
+                          }
+                          else {
+                             return GreenTextButton(text: 'Login', ontap: (){
+                               SigninController.Signup();
+                             });
+                            }
+                          }
+                        ),
+
                         SizedBox(height: 10,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

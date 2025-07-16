@@ -1,11 +1,6 @@
-import 'dart:async';
+import 'package:groceryapp_with_firebase/view/starting_view/splash_view/splash_screen5.dart';
 
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/components/green_text_button.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/view/starting_view/splash_view/splash_screen5.dart';
-import 'package:grocery_app/view/starting_view/splash_view/splash_screen6.dart';
+import '../../../linker/linker.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

@@ -1,15 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/green_text_button.dart';
-import 'package:grocery_app/controller/components/password-feild.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/controller/components/textfield.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/controller/utils/constants/appicons/app_icons.dart';
-import 'package:grocery_app/view/auth_view/login-screen/auth_login_screen.dart';
-import 'package:grocery_app/view/home_view/home-screen/home_screen.dart';
-import '../../../controller/utils/constants/appimages/app_images_widget.dart';
 
+import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
+
+import '../../../linker/linker.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -21,7 +13,9 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
   TextEditingController phoneNumberController=TextEditingController();
+  AuthController SignupController = AuthController();
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
@@ -75,10 +69,20 @@ class _SignupScreenState extends State<SignupScreen> {
                             PasswordWidget(hintext: 'enter the password', prefixIcons:Icons.lock_outline, controller: passwordController),
           
                             SizedBox(height: 10,),
-                            GreenTextButton(text:'Signup', ontap:(){
-                              Navigator.push(context, MaterialPageRoute(builder:
-                              (context)=>HomeScreen()));
-                            }),
+                            Obx(
+                                (){
+                                  if(SignupController.isloading.istrue){
+                                     return CircularProgressIndicator();
+
+                                  }
+                                  else{
+                                    GreenTextButton(text:'Signup', ontap:(){
+                                      SignupController.Signup();
+                                    });
+
+                                  }
+                                }
+                            ),
                             SizedBox(height: 10,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,

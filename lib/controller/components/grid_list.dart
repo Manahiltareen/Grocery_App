@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/product-details.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/model/product_model/grid_product_list.dart';
 
-import '../../view/home_view/cart-screen/cart.dart';
-import '../utils/constants/appcolors/app_color.dart';
-import '../utils/constants/appicons/app_icons.dart';
+
+import '../../linker/linker.dart';
 
 class GridList extends StatefulWidget {
   final List<GridContainer> products;

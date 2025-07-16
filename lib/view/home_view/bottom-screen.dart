@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/controller/utils/constants/appicons/app_icons.dart';
-import 'package:grocery_app/view/home_view/cart-screen/cart.dart';
-import 'package:grocery_app/view/home_view/favorities-screen/favourite.dart';
-import 'package:grocery_app/view/home_view/home-screen/home_screen.dart';
-import 'package:grocery_app/view/home_view/profile-screen/profile-screen.dart';
+
+
+
+import '../../linker/linker.dart';
+
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
 

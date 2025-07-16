@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/model/product_model/profile_list_model.dart';
+
+
+import '../../linker/linker.dart';
+
+
 class ListClass extends StatefulWidget {
   final List<ProfileList> profileitems;
   const ListClass({super.key, required this.profileitems});

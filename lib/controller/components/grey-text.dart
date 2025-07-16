@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
+
+import '../../linker/linker.dart';
+
 class GreyText extends StatelessWidget {
   final String text;
   final TextAlign textalign;

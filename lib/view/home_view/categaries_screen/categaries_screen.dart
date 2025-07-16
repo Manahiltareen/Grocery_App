@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/controller/utils/constants/appicons/app_icons.dart';
+
+import '../../../linker/linker.dart';
+
 class CategariesScreen extends StatefulWidget {
   const CategariesScreen({super.key});
 

@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/green_text_button.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/view/auth_view/varification_screen/otp_screen.dart';
 
-import '../../../controller/utils/constants/appicons/app_icons.dart';
+
+
+import '../../../linker/linker.dart';
+
 class VeryfyNumber extends StatefulWidget {
   @override
   _VeryfyNumberState createState() => _VeryfyNumberState();

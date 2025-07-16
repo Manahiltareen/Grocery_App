@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/components/green_text_button.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/controller/utils/constants/appcolors/app_color.dart';
-import 'package:grocery_app/controller/utils/constants/appimages/app_images_widget.dart';
+
+import '../../../linker/linker.dart';
+
 class SplashScreen7 extends StatelessWidget {
   const SplashScreen7({super.key});
 

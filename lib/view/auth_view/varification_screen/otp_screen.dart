@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/green_text_button.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/view/home_view/home-screen/home_screen1.dart';
 
-import '../../../controller/components/text-class.dart';
-import '../../../controller/utils/constants/appcolors/app_color.dart';
-import '../../../controller/utils/constants/appicons/app_icons.dart';
+
+
+import '../../../linker/linker.dart';
+
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
 

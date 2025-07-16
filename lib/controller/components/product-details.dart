@@ -1,12 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:grocery_app/controller/components/green_text_button.dart';
-import 'package:grocery_app/controller/components/grey-text.dart';
-import 'package:grocery_app/controller/components/text-class.dart';
-import 'package:grocery_app/controller/components/welcome_button.dart';
-import 'package:grocery_app/controller/utils/constants/appicons/app_icons.dart';
-import 'package:grocery_app/view/home_view/cart-screen/cart.dart';
 
-import '../utils/constants/appcolors/app_color.dart';
+import '../../linker/linker.dart';
+
 class ProductDetails extends StatefulWidget {
   final String text;
   final String image;
