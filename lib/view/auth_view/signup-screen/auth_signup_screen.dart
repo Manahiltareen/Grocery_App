@@ -71,13 +71,13 @@ class _SignupScreenState extends State<SignupScreen> {
           
                             SizedBox(height: 10,),
                             Obx(
-                                (){
-                                  if(SignupController.isloading.istrue){
+                                    (){
+                                  if(SignupController.isloading.value){
                                      return CircularProgressIndicator();
 
                                   }
                                   else{
-                                    GreenTextButton(text:'Signup', ontap:(){
+                                    return GreenTextButton(text:'Signup', ontap:(){
                                       SignupController.Signup();
                                     });
 

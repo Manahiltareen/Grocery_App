@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -18,14 +19,16 @@ class AuthController extends GetxController{
 
     try{
       isloading.value = true;
-      await FirebaseAuth.instace.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email : email.text, password: password.text,
       ).then((OnValue){
 
         Get.snackbar("Great", "Account Created sucessfully",
             backgroundColor: Colors.green,icon: Icon(Icons.done_outline_sharp,color: Colors.green.shade900,size: 22,));
-        Navigator.push(context, MaterialPageRoute(builder:
-            (context)=>HomeScreen()));
+        Get.to(HomeScreen());
+
+        // Navigator.push(context, MaterialPageRoute(builder:
+        //     (context)=>HomeScreen()));
     });
 
     }
@@ -36,7 +39,7 @@ class AuthController extends GetxController{
        backgroundColor: Colors.red, icon : Icon(Icons.delete, color:Colors.red.shade900 , size:22, ));
     }
     finally{
-      isloading = true;
+      isloading.value = true;
     }
   }
 
@@ -44,14 +47,13 @@ void Signin ()async{
     try{
       isloading.value = true;
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email2.text;
-        password: password2.text;
+        email: email2.text, password: password2.text,
+
       ).then((OnValue){
         Get.snackbar("great", "you have done it",
             backgroundColor: Colors.green,icon: Icon(Icons.done_outline_sharp,color: Colors.green.shade900,size: 22,)
         );
-        Navigator.push(context, MaterialPageRoute(builder:
-            (context)=>HomeScreen()));
+        Get.to(HomeScreen());
       });
 
     }

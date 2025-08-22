@@ -1,5 +1,6 @@
 
 
+import 'package:get/get.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
 
 import '../../../linker/linker.dart';
@@ -72,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 25,),
                         Obx(
                           (){
-                            if (SigninController.isloading.istrue){
+                            if (SigninController.isloading.value){
                             return CircularProgressIndicator();
                           }
                           else {
