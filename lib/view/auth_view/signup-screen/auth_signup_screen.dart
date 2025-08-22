@@ -1,4 +1,5 @@
 
+import 'package:get/get.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
 
 import '../../../linker/linker.dart';

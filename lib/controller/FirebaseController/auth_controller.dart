@@ -1,11 +1,14 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+
+import '../../linker/linker.dart';
 
 
 
 
 class AuthController extends GetxController{
-  Rxbool isloading = false.obs;
+  RxBool isloading = false.obs;
   TextEditingController email= TextEditingController();
   TextEditingController email2= TextEditingController();
   TextEditingController password= TextEditingController();
