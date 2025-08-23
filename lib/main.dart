@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
 
-      home ://ShippingAddress(),
+      home :
+      //ShippingAddress(),
       //CartScreen(),
       //TrackScreen(),
       //VeryfyNumber(),
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       //BottomAppBar(),
       //CategariesScreen(),
       //FavouriteScreen(),
-      //HomeScreen1(),
+      HomeScreen1(),
      //LoginScreen(),
      // WelcomeScreen(),
    //HomeScreen(),
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
       //SplashScreen4(),
      //SplashScreen3(),
     // SplashScreen2(),
-  SplashScreen(),
+  // SplashScreen(),
     );
   }
 }

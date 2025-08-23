@@ -50,8 +50,8 @@ class FirebaseController extends GetxController {
       categoriesList.value = catSnapshot.docs.map((doc) {
         var data = doc.data() as Map<String, dynamic>;
         return {
-          "id": doc.id,
-          "name": data["name"] ?? "No Name",
+          "catId": doc.id,
+          "Name": data["Name"] ?? "No Name",
         };
       }).toList();
     } catch (e) {
@@ -74,10 +74,11 @@ class FirebaseController extends GetxController {
       productsList.value = prodSnapshot.docs.map((doc) {
         var data = doc.data() as Map<String, dynamic>;
         return {
-          "id": doc.id,
-          "name": data["name"] ?? "No Name",
-          "unit": data["unit"] ?? "",
-          "price": data["price"] ?? "",
+          "productId": doc.id,
+          "productName": data["productName"] ?? "No Name",
+          "productUnit": data["productUnit"] ?? "",
+          "productPrice": data["productPrice"] ?? "",
+          "catId" : data["catId"]  ?? "",
           // "image": data["image"] ?? "",
         };
       }).toList();
