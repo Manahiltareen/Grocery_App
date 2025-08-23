@@ -3,6 +3,7 @@
 
 
 
+import '../../../controller/FirebaseController/productlist_Controller/productlist_controller.dart';
 import '../../../linker/linker.dart';
 
 class HomeScreen1 extends StatefulWidget {
@@ -12,6 +13,8 @@ class HomeScreen1 extends StatefulWidget {
   State<HomeScreen1> createState() => _HomeScreen1State();
 }
 class _HomeScreen1State extends State<HomeScreen1> {
+  final FirebaseController controller = Get.put(FirebaseController());
+  controller.fetchCategories();
   List<ProductList> listproduct=[
     ProductList( appcolor:  AppColors.LightGreen, text: 'Vegetables', image:   AppIcons.vegetablesicon,VegitableScreen()),
     ProductList(appcolor:AppColors.lightredcolor, text: 'Fruits', image:AppIcons.fruiticon,FruitsScreen()),

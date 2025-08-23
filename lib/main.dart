@@ -1,8 +1,16 @@
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:groceryapp_with_firebase/firebase_options.dart';
+
 import '../../../linker/linker.dart';
 
-void main() {
-  runApp(const MyApp());
+void main()async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp(
+
+  ));
 }
 
 class MyApp extends StatelessWidget {
