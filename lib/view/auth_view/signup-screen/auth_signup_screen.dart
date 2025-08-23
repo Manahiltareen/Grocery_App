@@ -78,7 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   }
                                   else{
                                     return GreenTextButton(text:'Signup', ontap:(){
-                                      SignupController.Signup();
+                                      SignupController.signup();
                                     });
 
                                   }
