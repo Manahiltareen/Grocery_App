@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'package:groceryapp_with_firebase/firebase_options.dart';
 
 import '../../../linker/linker.dart';
@@ -38,8 +39,8 @@ class MyApp extends StatelessWidget {
       //BottomAppBar(),
       //CategariesScreen(),
       //FavouriteScreen(),
-      HomeScreen1(),
-     //LoginScreen(),
+      // HomeScreen1(),
+     LoginScreen(),
      // WelcomeScreen(),
    //HomeScreen(),
       //SplashScreen01(),
@@ -52,7 +53,5 @@ class MyApp extends StatelessWidget {
     // SplashScreen2(),
   // SplashScreen(),
     );
-  }
-}
   }
 }

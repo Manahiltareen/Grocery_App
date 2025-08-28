@@ -10,9 +10,9 @@ class SignupScreen extends StatefulWidget {
   State<SignupScreen> createState() => _SignupScreenState();
 }
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController emailController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
-  TextEditingController phoneNumberController=TextEditingController();
+  // TextEditingController emailController=TextEditingController();
+  // TextEditingController passwordController=TextEditingController();
+  // TextEditingController phoneNumberController=TextEditingController();
   AuthController SignupController = AuthController();
   @override
 
@@ -61,12 +61,12 @@ class _SignupScreenState extends State<SignupScreen> {
                             FontWeight.w400,fontSize: 15,textalignn: TextAlign.start,textColor: AppColors.greyColor,),
                             SizedBox(height: 10,),
                             TextFeildWidget(hintext: 'enter the email',
-                              prefixIcons:Icons.email_outlined, controller:emailController,textInputType: TextInputType.emailAddress, color: AppColors.whiteColor),
+                              prefixIcons:Icons.email_outlined, controller:SignupController.email,textInputType: TextInputType.emailAddress, color: AppColors.whiteColor),
                            SizedBox(height: 10,),
                             TextFeildWidget(hintext: 'enter the phone number', prefixIcons:Icons.phone,
-                              controller:phoneNumberController,textInputType: TextInputType.phone,color: AppColors.whiteColor),
+                              controller:SignupController.number,textInputType: TextInputType.phone,color: AppColors.whiteColor),
                             SizedBox(height: 10,),
-                            PasswordWidget(hintext: 'enter the password', prefixIcons:Icons.lock_outline, controller: passwordController),
+                            PasswordWidget(hintext: 'enter the password', prefixIcons:Icons.lock_outline, controller:SignupController.password),
           
                             SizedBox(height: 10,),
                             Obx(
@@ -91,7 +91,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 SizedBox(width: 10,),
                                 InkWell(
                                   onTap: (){
-                                    Get.to(() => HomeScreen1());
+                                    Get.to(() => BottomNav());
 
 
                                   },

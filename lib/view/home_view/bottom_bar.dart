@@ -12,7 +12,7 @@ class _BottomNavState extends State<BottomNav> {
   int currentIndexs=0;
   final List<Widget> navscreens=[
     HomeScreen1(),
-  ProfileScreen(),
+     ProfileScreen(),
     FavouriteScreen(),
     CartScreen(),
   ];

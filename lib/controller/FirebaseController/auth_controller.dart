@@ -50,7 +50,7 @@ class AuthController extends GetxController {
       Get.snackbar("Great", "Account Created Successfully",
           backgroundColor: Colors.green,
           icon: Icon(Icons.done_outline, color: Colors.green.shade900));
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => BottomNav());
     } catch (e) {
       Get.snackbar("Oops", e.toString(),
           backgroundColor: Colors.red,
@@ -89,7 +89,7 @@ class AuthController extends GetxController {
       Get.snackbar("Welcome", "Login Successful",
           backgroundColor: Colors.green,
           icon: Icon(Icons.done_outline, color: Colors.green.shade900));
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => BottomNav());
     } catch (e) {
       Get.snackbar("Oops", e.toString(),
           backgroundColor: Colors.red,
