@@ -48,7 +48,7 @@ export 'package:groceryapp_with_firebase/view/home_view/profile-screen/address_s
 export 'package:groceryapp_with_firebase/view/home_view/favorities-screen/favourite.dart';
 export 'package:groceryapp_with_firebase/view/home_view/profile-screen/aboutscreen.dart';
 export 'package:groceryapp_with_firebase/view/home_view/profile-screen/creditcard_screen.dart';
-export 'package:groceryapp_with_firebase/view/home_view/profile-screen/my_address_screen.dart';
+
 export 'package:groceryapp_with_firebase/view/home_view/profile-screen/notifictionscreen.dart';
 export 'package:groceryapp_with_firebase/view/home_view/profile-screen/orderscreen.dart';
 export 'package:groceryapp_with_firebase/view/home_view/profile-screen/signout_screen.dart';
