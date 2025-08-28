@@ -2,6 +2,8 @@
 
 
 
+
+
 import 'package:groceryapp_with_firebase/view/home_view/profile-screen/my_address_screen.dart';
 
 import '../../../linker/linker.dart';
@@ -47,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 child: Column(
                                     children: [
-                                      SizedBox(height: 80,),
+                                      // SizedBox(height: 80,),
                                       Container(
                                         height: 100,
                                         width: 100,
