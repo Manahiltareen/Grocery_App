@@ -62,9 +62,11 @@ class _AboutScreenState extends State<AboutScreen> {
                   children: [
                     Icon(Icons.email_outlined, color: AppColors.greyColor,),
                     SizedBox(width: 20,),
-                    GreyText(text: authController.email.value.isNotEmpty
-                      ? authController.email.value
-                      : 'Email'),
+                    GreyText(
+                      text: authController.emailObs.value.toString().isNotEmpty
+                        ? authController.emailObs.value.toString()
+                        : 'Email'
+                    ),
                   ],
                 ),
               )),

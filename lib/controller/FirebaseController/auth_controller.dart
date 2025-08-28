@@ -125,7 +125,7 @@ class AuthController extends GetxController {
   }
 
   var username = ''.obs;
-  var email = ''.obs;
+  var emailObs = ''.obs;
   var phone = ''.obs;
 
   void changePassword({required String currentPassword, required String newPassword, required String confirmPassword}) {
