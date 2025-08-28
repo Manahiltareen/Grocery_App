@@ -56,7 +56,9 @@ class AddressController extends GetxController {
       return data;
     }).toList();
   }
-}
+
+  Future<void> updateAddress(String docId, Map<String, dynamic> updatedData) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
     await FirebaseFirestore.instance
       .collection('Users')
@@ -67,8 +69,6 @@ class AddressController extends GetxController {
     await fetchAddresses();
   }
 }
-    Placemark place = placemarks.first;
-
     Map<String, dynamic> addressData = {
       'streetaddress': "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
       'zipcode': place.postalCode ?? '',
