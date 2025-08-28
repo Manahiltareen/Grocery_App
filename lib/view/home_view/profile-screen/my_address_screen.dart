@@ -114,7 +114,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                TextFeildWidget(hintext: 'Street Address', controller: streetController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'Street Address', controller: streetController, color: AppColors.whiteColor, prefixIcons: null,),
                                 TextFeildWidget(hintext: 'City', controller: cityController, color: AppColors.whiteColor),
                                 TextFeildWidget(hintext: 'State', controller: stateController, color: AppColors.whiteColor),
                                 TextFeildWidget(hintext: 'Country', controller: countryController, color: AppColors.whiteColor),

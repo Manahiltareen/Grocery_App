@@ -1,4 +1,3 @@
-
 import '../../../linker/linker.dart';
 
 class AddressScreen extends StatefulWidget {
@@ -38,13 +37,13 @@ class _AddressScreenState extends State<AddressScreen> {
           child: Column(
             children: [
               SizedBox(height: 35,),
-              TextFeildWidget(hintext: 'Name', prefixIcons:Icons.person_outline_sharp, controller:nameController,color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Email Address', prefixIcons:Icons.email_outlined, controller: emailController,color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Phone number', prefixIcons: Icons.phone, controller: phoneNumberController,color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Address', prefixIcons: Icons.person_pin_circle, controller: adddresController,color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Zip code', prefixIcons:Icons.margin , controller: zipcodeController,color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'city', prefixIcons: Icons.location_city_outlined, controller:cityController,color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Country', prefixIcons: Icons.language, controller: CountryController,color: AppColors.whiteColor,),
+              TextFeildWidget(hintext: 'Name', prefixIcon: Icons.person_outline_sharp, controller: nameController, color: AppColors.whiteColor,),
+              TextFeildWidget(hintext: 'Email Address', prefixIcon: Icons.email_outlined, controller: emailController, color: AppColors.whiteColor,),
+              TextFeildWidget(hintext: 'Phone number', prefixIcon: Icons.phone, controller: phoneNumberController, color: AppColors.whiteColor,),
+              TextFeildWidget(hintext: 'Address', prefixIcon: Icons.person_pin_circle, controller: adddresController, color: AppColors.whiteColor,),
+              TextFeildWidget(hintext: 'Zip code', prefixIcon: Icons.margin, controller: zipcodeController, color: AppColors.whiteColor,),
+              TextFeildWidget(hintext: 'city', prefixIcon: Icons.location_city_outlined, controller: cityController, color: AppColors.whiteColor,),
+              TextFeildWidget(hintext: 'Country', prefixIcon: Icons.language, controller: CountryController, color: AppColors.whiteColor,),
               SizedBox(height: 10,),
               Row(
                 children: [
@@ -62,4 +61,5 @@ class _AddressScreenState extends State<AddressScreen> {
       ),
     );
   }
+}
 }
