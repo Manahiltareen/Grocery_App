@@ -127,8 +127,23 @@ class AuthController extends GetxController {
   var username = ''.obs;
   var emailObs = ''.obs;
   var phone = ''.obs;
+  var userInfoList = <Map<String, dynamic>>[].obs;
 
   void changePassword({required String currentPassword, required String newPassword, required String confirmPassword}) {
     // Implement password change logic here
+  }
+
+  Future<void> fetchUserInfo() async {
+    String? uid = _storage.read("uid");
+    if (uid == null) return;
+    DocumentSnapshot doc = await _firestore.collection("Users").doc(uid).get();
+    if (doc.exists) {
+      var userData = doc.data() as Map<String, dynamic>;
+      userInfoList.value = [userData];
+      // Optionally update individual observables for backward compatibility
+      username.value = userData["name"] ?? '';
+      emailObs.value = userData["email"] ?? '';
+      phone.value = userData["number"] ?? '';
+    }
   }
 }

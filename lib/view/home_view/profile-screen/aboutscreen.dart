@@ -16,6 +16,12 @@ class _AboutScreenState extends State<AboutScreen> {
   final AuthController authController = Get.put(AuthController());
 
   @override
+  void initState() {
+    super.initState();
+    authController.fetchUserInfo();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,86 +34,84 @@ class _AboutScreenState extends State<AboutScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 25,),
-              BlackTextWidget(text:'Personal Details',
-                fontWeight: FontWeight.w600,fontSize: 18, ),
-              SizedBox(height: 20,),
-              Obx(() => Container(
-                height: 60,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
+          child: Obx(() {
+            if (authController.userInfoList.isEmpty) {
+              return Center(child: CircularProgressIndicator());
+            }
+            final user = authController.userInfoList.first;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 25,),
+                BlackTextWidget(text:'Personal Details',
+                  fontWeight: FontWeight.w600,fontSize: 18, ),
+                SizedBox(height: 20,),
+                Container(
+                  height: 60,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                  ),
+                  child: Row(
+                    children: [
+                      Image(image: AssetImage(AppIcons.person)),
+                      SizedBox(width: 20,),
+                      GreyText(text: user["name"] ?? 'Username'),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Image(image: AssetImage(AppIcons.person)),
-                    SizedBox(width: 20,),
-                    GreyText(text: authController.username.value.isNotEmpty
-                      ? authController.username.value
-                      : 'Username'),
-                  ],
+                SizedBox(height: 15,),
+                Container(
+                  height: 60,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.email_outlined, color: AppColors.greyColor,),
+                      SizedBox(width: 20,),
+                      GreyText(text: user["email"] ?? 'Email'),
+                    ],
+                  ),
                 ),
-              )),
-              SizedBox(height: 15,),
-              Obx(() => Container(
-                height: 60,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
+                SizedBox(height: 15,),
+                Container(
+                  height: 60,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.phone, color: AppColors.greyColor,)
+                     , SizedBox(width: 20,),
+                      GreyText(text: user["number"] ?? 'Phone'),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Icon(Icons.email_outlined, color: AppColors.greyColor,),
-                    SizedBox(width: 20,),
-                    GreyText(
-                      text: authController.emailObs.value.toString().isNotEmpty
-                        ? authController.emailObs.value.toString()
-                        : 'Email'
-                    ),
-                  ],
-                ),
-              )),
-              SizedBox(height: 15,),
-              Obx(() => Container(
-                height: 60,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.phone, color: AppColors.greyColor,)
-                   , SizedBox(width: 20,),
-                    GreyText(text: authController.phone.value.isNotEmpty
-                      ? authController.phone.value
-                      : 'Phone'),
-                  ],
-                ),
-              )),
-              SizedBox(height: 30,),
-              BlackTextWidget(text:
-              'Change Password',fontSize:18,fontWeight:
-              FontWeight.w600,),
-              SizedBox(height: 10,),
-              TextFeildWidget(hintext: 'Current password', prefixIcons: Icons.lock_outline, controller: passwordController,color: AppColors.whiteColor),
-              PasswordWidget(hintext: 'password', prefixIcons: Icons.lock_outline, controller: checkPasswordController,),
-              TextFeildWidget(hintext: 'Confirm password', prefixIcons: Icons.lock_outline, controller: passwordConfirmController,color: AppColors.whiteColor),
-              SizedBox(height: 20,),
-              GreenTextButton(
-                text: 'Save settings',
-                ontap: () {
-                  authController.changePassword(
-                    currentPassword: passwordController.text.trim(),
-                    newPassword: checkPasswordController.text.trim(),
-                    confirmPassword: passwordConfirmController.text.trim(),
-                  );
-                }
-              )
-            ],
-          ),
+                SizedBox(height: 30,),
+                BlackTextWidget(text:
+                'Change Password',fontSize:18,fontWeight:
+                FontWeight.w600,),
+                SizedBox(height: 10,),
+                TextFeildWidget(hintext: 'Current password', prefixIcons: Icons.lock_outline, controller: passwordController,color: AppColors.whiteColor),
+                PasswordWidget(hintext: 'password', prefixIcons: Icons.lock_outline, controller: checkPasswordController,),
+                TextFeildWidget(hintext: 'Confirm password', prefixIcons: Icons.lock_outline, controller: passwordConfirmController,color: AppColors.whiteColor),
+                SizedBox(height: 20,),
+                GreenTextButton(
+                  text: 'Save settings',
+                  ontap: () {
+                    authController.changePassword(
+                      currentPassword: passwordController.text.trim(),
+                      newPassword: checkPasswordController.text.trim(),
+                      confirmPassword: passwordConfirmController.text.trim(),
+                    );
+                  }
+                )
+              ],
+            );
+          }),
         ),
       ),
     );
