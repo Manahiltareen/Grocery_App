@@ -1,4 +1,6 @@
 import '../../../linker/linker.dart';
+import 'package:get/get.dart';
+import 'package:groceryapp_with_firebase/controller/FirebaseController/address_contreoller.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key});
@@ -8,58 +10,65 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  TextEditingController nameController=TextEditingController();
-  TextEditingController emailController=TextEditingController();
-  TextEditingController phoneNumberController=TextEditingController();
-  TextEditingController adddresController=TextEditingController();
-  TextEditingController cityController=TextEditingController();
-  TextEditingController zipcodeController=TextEditingController();
-  TextEditingController CountryController=TextEditingController();
+  final AddressController addressController = Get.put(AddressController());
+
+  @override
+  void initState() {
+    super.initState();
+    addressController.fetchAddresses();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
-        title: BlackTextWidget(text: 'My Address',fontWeight: FontWeight.w600,fontSize: 18,),
+        title: BlackTextWidget(text: 'My Address', fontWeight: FontWeight.w600, fontSize: 18,),
         centerTitle: true,
-        leading: Image(image: AssetImage(AppIcons.backicon),color:
-        AppColors.blackColor,),
+        leading: Image(image: AssetImage(AppIcons.backicon), color: AppColors.blackColor,),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right:18.0),
-            child: Image(image: AssetImage(AppIcons.search2),color: AppColors.blackColor,),
+            child: Image(image: AssetImage(AppIcons.search2), color: AppColors.blackColor,),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            children: [
-              SizedBox(height: 35,),
-              TextFeildWidget(hintext: 'Name', prefixIcon: Icons.person_outline_sharp, controller: nameController, color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Email Address', prefixIcon: Icons.email_outlined, controller: emailController, color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Phone number', prefixIcon: Icons.phone, controller: phoneNumberController, color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Address', prefixIcon: Icons.person_pin_circle, controller: adddresController, color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Zip code', prefixIcon: Icons.margin, controller: zipcodeController, color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'city', prefixIcon: Icons.location_city_outlined, controller: cityController, color: AppColors.whiteColor,),
-              TextFeildWidget(hintext: 'Country', prefixIcon: Icons.language, controller: CountryController, color: AppColors.whiteColor,),
-              SizedBox(height: 10,),
-              Row(
-                children: [
-                  SizedBox(width: 15,),
-                  Image(image: AssetImage(AppIcons.icon2),color: AppColors.greencolor,),
-                  SizedBox(width: 30,),
-                  BlackTextWidget(text:'Save this address',fontSize: 12,fontWeight: FontWeight.w400,)
-                ],
-              ),
-              SizedBox(height: 30,),
-              GreenTextButton(text: 'Add address', ontap: (){}),
-            ],
+      body: Column(
+        children: [
+          SizedBox(height: 20),
+          GreenTextButton(
+            text: 'Save Current Location Address',
+            ontap: () async {
+              await addressController.saveCurrentLocationAddress();
+            }
           ),
-        ),
+          SizedBox(height: 20),
+          Expanded(
+            child: Obx(() {
+              if (addressController.addressList.isEmpty) {
+                return Center(child: Text('No address found'));
+              }
+              return ListView.builder(
+                itemCount: addressController.addressList.length,
+                itemBuilder: (context, index) {
+                  final address = addressController.addressList[index];
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    child: ListTile(
+                      title: Text(address['streetaddress'] ?? ''),
+                      subtitle: Text(
+                        "${address['city'] ?? ''}, ${address['state'] ?? ''}, ${address['country'] ?? ''} ${address['zipcode'] ?? ''}\n"
+                        "Lat: ${address['lattitude'] ?? ''}, Long: ${address['longitude'] ?? ''}"
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
+          ),
+        ],
       ),
     );
   }
 }
-}
+
