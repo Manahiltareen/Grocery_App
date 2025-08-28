@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -22,20 +22,16 @@ class AddressController extends GetxController {
     }).toList();
   }
 
-  Future<void> fetchCurrentLocationAddress() async {
+  Future<void> saveCurrentLocationAddress() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    // Request location permission
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
       return;
     }
 
-    // Get current position
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-    // Reverse geocode to get address details
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemarks.first;
 
@@ -56,7 +52,6 @@ class AddressController extends GetxController {
       .collection('address')
       .add(addressData);
 
-    // Update observable list
     await fetchAddresses();
   }
 
@@ -72,6 +67,11 @@ class AddressController extends GetxController {
     await fetchAddresses();
   }
 }
+    Placemark place = placemarks.first;
+
+    Map<String, dynamic> addressData = {
+      'streetaddress': "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
+      'zipcode': place.postalCode ?? '',
       'city': place.locality ?? '',
       'state': place.administrativeArea ?? '',
       'country': place.country ?? '',
