@@ -77,11 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   return GreenTextButton(
                                     text:'Signup',
                                     ontap:(){
-                                      SignupController.signup(
-                                        emailController.text.trim(),
-                                        passwordController.text.trim(),
-                                        phoneNumberController.text.trim(),
-                                      );
+                                      SignupController.signup();
                                     },
                                   );
                                 }
@@ -114,6 +110,10 @@ class _SignupScreenState extends State<SignupScreen> {
               ]
           ),
         )
+    );
+
+  }
+}
     );
 
   }

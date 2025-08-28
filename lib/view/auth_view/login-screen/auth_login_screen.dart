@@ -77,10 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               return GreenTextButton(
                                 text: 'Login',
                                 ontap: () {
-                                  SigninController.signin(
-                                    emailController.text.trim(),
-                                    passwordController.text.trim(),
-                                  );
+                                  SigninController.signin();
                                 },
                               );
                             }
