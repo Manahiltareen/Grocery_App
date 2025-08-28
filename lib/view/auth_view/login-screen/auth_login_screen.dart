@@ -9,8 +9,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
+  // TextEditingController emailController=TextEditingController();
+  // TextEditingController passwordController=TextEditingController();
   AuthController SigninController = AuthController();
   @override
   Widget build(BuildContext context) {
@@ -56,8 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         FontWeight.w400,fontSize: 15,textalignn: TextAlign.start,textColor: AppColors.greyColor,),
                         SizedBox(height: 20,),
                         TextFeildWidget(hintext: 'enter the email',color: AppColors.whiteColor,
-                          prefixIcons:Icons.email_outlined, controller:emailController,textInputType: TextInputType.emailAddress, ),
-                        PasswordWidget(hintext: 'enter the password', prefixIcons:Icons.lock_outline, controller: passwordController),
+                          prefixIcons:Icons.email_outlined, controller: SigninController.email2,textInputType: TextInputType.emailAddress, ),
+                        PasswordWidget(hintext: 'enter the password', prefixIcons:Icons.lock_outline, controller: SigninController.password2),
                        SizedBox(height: 10,),
                         Row(
                             children: [

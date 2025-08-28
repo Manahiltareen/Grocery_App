@@ -13,7 +13,7 @@ class _AboutScreenState extends State<AboutScreen> {
   TextEditingController passwordController=TextEditingController();
   TextEditingController passwordConfirmController=TextEditingController();
   TextEditingController checkPasswordController=TextEditingController();
-  final AuthController authController = Get.find<AuthController>();
+  final AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
