@@ -91,26 +91,26 @@ class _SignupScreenState extends State<SignupScreen> {
                                 SizedBox(width: 10,),
                                 InkWell(
                                   onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()))
-                                  ;},
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                                  },
                                   child: BlackTextWidget(text:
                                   'Signin',fontSize: 15,fontWeight: FontWeight.w300,),
                                 ),
                                 SizedBox(height: 20,),
                               ],
                             )
-
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-          
               ]
           ),
         )
     );
+  }
+}
 
   }
 }
