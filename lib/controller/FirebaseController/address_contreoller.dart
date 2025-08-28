@@ -11,11 +11,13 @@ class AddressController extends GetxController {
   Future<void> fetchAddresses() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
+
     QuerySnapshot snapshot = await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(uid)
-      .collection('address')
-      .get();
+        .collection('Users')
+        .doc(uid)
+        .collection('address')
+        .get();
+
     addressList.value = snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
       data['docId'] = doc.id;
@@ -28,17 +30,27 @@ class AddressController extends GetxController {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
+    // Request location permission
     LocationPermission permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       return;
     }
 
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    // Get current position
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    // Reverse geocode
+    List<Placemark> placemarks =
+    await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemarks.first;
 
+    // Prepare data
     Map<String, dynamic> addressData = {
-      'streetaddress': "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
+      'streetaddress':
+      "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
       'zipcode': place.postalCode ?? '',
       'city': place.locality ?? '',
       'state': place.administrativeArea ?? '',
@@ -48,58 +60,30 @@ class AddressController extends GetxController {
       'status': true,
     };
 
+    // Save to Firestore
     await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(uid)
-      .collection('address')
-      .add(addressData);
+        .collection('Users')
+        .doc(uid)
+        .collection('address')
+        .add(addressData);
 
+    // Refresh list
     await fetchAddresses();
   }
 
-  // Update address in Firestore
-  Future<void> updateAddress(String docId, Map<String, dynamic> updatedData) async {
+  // Update existing address
+  Future<void> updateAddress(
+      String docId, Map<String, dynamic> updatedData) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
-    await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(uid)
-      .collection('address')
-      .doc(docId)
-      .update(updatedData);
-    await fetchAddresses();
-  }
-}
-      'streetaddress': "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
-      'zipcode': place.postalCode ?? '',
-      'city': place.locality ?? '',
-      'state': place.administrativeArea ?? '',
-      'country': place.country ?? '',
-      'lattitude': position.latitude.toString(),
-      'longitude': position.longitude.toString(),
-      'status': true,
-    };
 
-    // Optionally save to Firestore
     await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(uid)
-      .collection('address')
-      .add(addressData);
+        .collection('Users')
+        .doc(uid)
+        .collection('address')
+        .doc(docId)
+        .update(updatedData);
 
-    // Update observable list
-    await fetchAddresses();
-  }
-
-  Future<void> updateAddress(String docId, Map<String, dynamic> updatedData) async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
-    await FirebaseFirestore.instance
-      .collection('Users')
-      .doc(uid)
-      .collection('address')
-      .doc(docId)
-      .update(updatedData);
     await fetchAddresses();
   }
 }

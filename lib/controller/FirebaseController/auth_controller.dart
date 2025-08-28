@@ -47,6 +47,9 @@ class AuthController extends GetxController {
       _storage.write("number", number.text);
       _storage.write("uid", uid);
 
+      // Fetch user info after signup
+      await fetchUserInfo();
+
       Get.snackbar("Great", "Account Created Successfully",
           backgroundColor: Colors.green,
           icon: Icon(Icons.done_outline, color: Colors.green.shade900));
@@ -85,6 +88,9 @@ class AuthController extends GetxController {
         _storage.write("name", userData["name"]);
         _storage.write("address", userData["address"]);
       }
+
+      // Fetch user info after signin
+      await fetchUserInfo();
 
       Get.snackbar("Welcome", "Login Successful",
           backgroundColor: Colors.green,
@@ -144,6 +150,7 @@ class AuthController extends GetxController {
       username.value = userData["name"] ?? '';
       emailObs.value = userData["email"] ?? '';
       phone.value = userData["number"] ?? '';
+      userInfoList.refresh(); // Notify listeners
     }
   }
 }
