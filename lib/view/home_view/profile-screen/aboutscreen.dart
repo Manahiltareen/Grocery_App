@@ -111,23 +111,3 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 }
-                  addressController.saveAddress(
-                    streetaddress: streetAddressController.text.trim(),
-                    zipcode: zipcodeController.text.trim(),
-                    city: cityController.text.trim(),
-                    state: stateController.text.trim(),
-                    country: countryController.text.trim(),
-                    lattitude: latitudeController.text.trim(),
-                    longitude: longitudeController.text.trim(),
-                    status: true,
-                  );
-                }
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-

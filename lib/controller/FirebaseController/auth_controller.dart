@@ -123,4 +123,12 @@ class AuthController extends GetxController {
           icon: Icon(Icons.error, color: Colors.red.shade900));
     }
   }
+
+  var username = ''.obs;
+  var email = ''.obs;
+  var phone = ''.obs;
+
+  void changePassword({required String currentPassword, required String newPassword, required String confirmPassword}) {
+    // Implement password change logic here
+  }
 }

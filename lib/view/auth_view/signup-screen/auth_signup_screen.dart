@@ -78,9 +78,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                     text: 'Signup',
                                     ontap: () {
                                       SignupController.signup(
-                                        emailController.text.trim(),
-                                        passwordController.text.trim(),
-                                        phoneNumberController.text.trim(),
+                                        email: emailController.text.trim(),
+                                        password: passwordController.text.trim(),
+                                        phone: phoneNumberController.text.trim(),
                                       );
                                     },
                                   );
