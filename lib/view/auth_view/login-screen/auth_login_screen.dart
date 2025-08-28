@@ -78,8 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 text: 'Login',
                                 ontap: () {
                                   SigninController.signin(
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text.trim(),
+                                    emailController.text.trim(),
+                                    passwordController.text.trim(),
                                   );
                                 },
                               );

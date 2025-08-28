@@ -75,12 +75,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                   return CircularProgressIndicator();
                                 } else {
                                   return GreenTextButton(
-                                    text: 'Signup',
-                                    ontap: () {
+                                    text:'Signup',
+                                    ontap:(){
                                       SignupController.signup(
-                                        email: emailController.text.trim(),
-                                        password: passwordController.text.trim(),
-                                        phone: phoneNumberController.text.trim(),
+                                        emailController.text.trim(),
+                                        passwordController.text.trim(),
+                                        phoneNumberController.text.trim(),
                                       );
                                     },
                                   );
