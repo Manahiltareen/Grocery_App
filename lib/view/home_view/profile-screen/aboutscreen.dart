@@ -1,5 +1,6 @@
-
 import '../../../linker/linker.dart';
+import 'package:get/get.dart';
+import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -12,6 +13,8 @@ class _AboutScreenState extends State<AboutScreen> {
   TextEditingController passwordController=TextEditingController();
   TextEditingController passwordConfirmController=TextEditingController();
   TextEditingController checkPasswordController=TextEditingController();
+  final AuthController authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,7 @@ class _AboutScreenState extends State<AboutScreen> {
               BlackTextWidget(text:'Personal Details',
                 fontWeight: FontWeight.w600,fontSize: 18, ),
               SizedBox(height: 20,),
-              Container(
+              Obx(() => Container(
                 height: 60,
                 width: 350,
                 decoration: BoxDecoration(
@@ -42,11 +45,14 @@ class _AboutScreenState extends State<AboutScreen> {
                   children: [
                     Image(image: AssetImage(AppIcons.person)),
                     SizedBox(width: 20,),
-                    GreyText(text: 'Russell Austin') ,             ],
+                    GreyText(text: authController.username.value.isNotEmpty
+                      ? authController.username.value
+                      : 'Username'),
+                  ],
                 ),
-              ),
+              )),
               SizedBox(height: 15,),
-              Container(
+              Obx(() => Container(
                 height: 60,
                 width: 350,
                 decoration: BoxDecoration(
@@ -54,13 +60,16 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.email_outlined,color: AppColors.greyColor,),
+                    Icon(Icons.email_outlined, color: AppColors.greyColor,),
                     SizedBox(width: 20,),
-                    GreyText(text: 'russell.partner@gmail.com') ,             ],
+                    GreyText(text: authController.email.value.isNotEmpty
+                      ? authController.email.value
+                      : 'Email'),
+                  ],
                 ),
-              ),
+              )),
               SizedBox(height: 15,),
-              Container(
+              Obx(() => Container(
                 height: 60,
                 width: 350,
                 decoration: BoxDecoration(
@@ -68,11 +77,14 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.phone,color: AppColors.greyColor,)
+                    Icon(Icons.phone, color: AppColors.greyColor,)
                    , SizedBox(width: 20,),
-                    GreyText(text: '+1  202  555  0142 ') ,             ],
+                    GreyText(text: authController.phone.value.isNotEmpty
+                      ? authController.phone.value
+                      : 'Phone'),
+                  ],
                 ),
-              ),
+              )),
               SizedBox(height: 30,),
               BlackTextWidget(text:
               'Change Password',fontSize:18,fontWeight:
@@ -81,8 +93,36 @@ class _AboutScreenState extends State<AboutScreen> {
               TextFeildWidget(hintext: 'Current password', prefixIcons: Icons.lock_outline, controller: passwordController,color: AppColors.whiteColor),
               PasswordWidget(hintext: 'password', prefixIcons: Icons.lock_outline, controller: checkPasswordController,),
               TextFeildWidget(hintext: 'Confirm password', prefixIcons: Icons.lock_outline, controller: passwordConfirmController,color: AppColors.whiteColor),
-             SizedBox(height: 60,),
-              GreenTextButton(text: 'Save settings', ontap: (){})
+              SizedBox(height: 20,),
+              GreenTextButton(
+                text: 'Save settings',
+                ontap: () {
+                  authController.changePassword(
+                    currentPassword: passwordController.text.trim(),
+                    newPassword: checkPasswordController.text.trim(),
+                    confirmPassword: passwordConfirmController.text.trim(),
+                  );
+                }
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+                  addressController.saveAddress(
+                    streetaddress: streetAddressController.text.trim(),
+                    zipcode: zipcodeController.text.trim(),
+                    city: cityController.text.trim(),
+                    state: stateController.text.trim(),
+                    country: countryController.text.trim(),
+                    lattitude: latitudeController.text.trim(),
+                    longitude: longitudeController.text.trim(),
+                    status: true,
+                  );
+                }
+              )
             ],
           ),
         ),

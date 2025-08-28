@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
 
@@ -71,18 +70,22 @@ class _SignupScreenState extends State<SignupScreen> {
           
                             SizedBox(height: 10,),
                             Obx(
-                                    (){
-                                  if(SignupController.isloading.value){
-                                     return CircularProgressIndicator();
-
-                                  }
-                                  else{
-                                    return GreenTextButton(text:'Signup', ontap:(){
-                                      SignupController.signup();
-                                    });
-
-                                  }
+                              () {
+                                if (SignupController.isloading.value) {
+                                  return CircularProgressIndicator();
+                                } else {
+                                  return GreenTextButton(
+                                    text: 'Signup',
+                                    ontap: () {
+                                      SignupController.signup(
+                                        emailController.text.trim(),
+                                        passwordController.text.trim(),
+                                        phoneNumberController.text.trim(),
+                                      );
+                                    },
+                                  );
                                 }
+                              }
                             ),
                             SizedBox(height: 10,),
                             Row(

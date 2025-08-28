@@ -1,5 +1,3 @@
-
-
 import 'package:get/get.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
 
@@ -72,14 +70,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 25,),
                         Obx(
-                          (){
-                            if (SigninController.isloading.value){
-                            return CircularProgressIndicator();
-                          }
-                          else {
-                             return GreenTextButton(text: 'Login', ontap: (){
-                               SigninController.signin();
-                             });
+                          () {
+                            if (SigninController.isloading.value) {
+                              return CircularProgressIndicator();
+                            } else {
+                              return GreenTextButton(
+                                text: 'Login',
+                                ontap: () {
+                                  SigninController.signin(
+                                    emailController.text.trim(),
+                                    passwordController.text.trim(),
+                                  );
+                                },
+                              );
                             }
                           }
                         ),
