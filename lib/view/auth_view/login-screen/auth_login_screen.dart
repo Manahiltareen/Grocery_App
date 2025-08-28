@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/auth_controller.dart';
+import 'package:groceryapp_with_firebase/view/auth_view/signup-screen/auth_signup_screen.dart';
 
 import '../../../linker/linker.dart';
 class LoginScreen extends StatefulWidget {
@@ -90,7 +91,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             BlackTextWidget(text: 'Don’t have an account ?',fontSize: 15,fontWeight: FontWeight.w500,textColor: AppColors.greyColor,),
                             InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Get.to(() => SignupScreen());
+
+                                },
                                 child: BlackTextWidget(text: 'Sign up',fontSize: 15,fontWeight: FontWeight.w500,))
                           ],
                         )
