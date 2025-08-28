@@ -114,13 +114,13 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                TextFeildWidget(hintext: 'Street Address', controller: streetController, color: AppColors.whiteColor, prefixIcons: null,),
-                                TextFeildWidget(hintext: 'City', controller: cityController, color: AppColors.whiteColor),
-                                TextFeildWidget(hintext: 'State', controller: stateController, color: AppColors.whiteColor),
-                                TextFeildWidget(hintext: 'Country', controller: countryController, color: AppColors.whiteColor),
-                                TextFeildWidget(hintext: 'Zipcode', controller: zipcodeController, color: AppColors.whiteColor),
-                                TextFeildWidget(hintext: 'Latitude', controller: latitudeController, color: AppColors.whiteColor),
-                                TextFeildWidget(hintext: 'Longitude', controller: longitudeController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'Street Address', prefixIcon: Icons.location_on, controller: streetController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'City', prefixIcon: Icons.location_city, controller: cityController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'State', prefixIcon: Icons.location_city, controller: stateController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'Country', prefixIcon: Icons.language, controller: countryController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'Zipcode', prefixIcon: Icons.margin, controller: zipcodeController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'Latitude', prefixIcon: Icons.location_on, controller: latitudeController, color: AppColors.whiteColor),
+                                TextFeildWidget(hintext: 'Longitude', prefixIcon: Icons.location_on, controller: longitudeController, color: AppColors.whiteColor),
                                 SizedBox(height: 10),
                                 GreenTextButton(
                                   text: 'Update Address',
@@ -153,7 +153,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
             GreenTextButton(
               text: 'Fetch Current Location & Save',
               ontap: () async {
-                await addressController.fetchCurrentLocationAddress();
+                await addressController.saveCurrentLocationAddress();
               }
             ),
             SizedBox(height: 40),
