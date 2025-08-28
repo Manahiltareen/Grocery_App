@@ -7,7 +7,7 @@ import 'package:geocoding/geocoding.dart';
 class AddressController extends GetxController {
   var addressList = <Map<String, dynamic>>[].obs;
 
-  // Fetch all addresses from Firestore
+  /// -----------------Fetch all addresses from Firestore
   Future<void> fetchAddresses() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
@@ -49,8 +49,7 @@ class AddressController extends GetxController {
 
     // Prepare data
     Map<String, dynamic> addressData = {
-      'streetaddress':
-      "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
+      'streetaddress': "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
       'zipcode': place.postalCode ?? '',
       'city': place.locality ?? '',
       'state': place.administrativeArea ?? '',
@@ -61,8 +60,7 @@ class AddressController extends GetxController {
     };
 
     // Save to Firestore
-    await FirebaseFirestore.instance
-        .collection('Users')
+    await FirebaseFirestore.instance.collection('Users')
         .doc(uid)
         .collection('address')
         .add(addressData);
@@ -72,18 +70,13 @@ class AddressController extends GetxController {
   }
 
   // Update existing address
-  Future<void> updateAddress(
-      String docId, Map<String, dynamic> updatedData) async {
+  Future<void> updateAddress(String docId, Map<String, dynamic> updatedData) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .collection('address')
-        .doc(docId)
-        .update(updatedData);
+    await FirebaseFirestore.instance.collection('Users').doc(uid).collection('address').doc(docId).update(updatedData);
 
     await fetchAddresses();
   }
 }
+

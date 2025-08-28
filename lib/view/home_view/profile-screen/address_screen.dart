@@ -57,8 +57,8 @@ class _AddressScreenState extends State<AddressScreen> {
                     child: ListTile(
                       title: Text(address['streetaddress'] ?? ''),
                       subtitle: Text(
-                        "${address['city'] ?? ''}, ${address['state'] ?? ''}, ${address['country'] ?? ''} ${address['zipcode'] ?? ''}\n"
-                        "Lat: ${address['lattitude'] ?? ''}, Long: ${address['longitude'] ?? ''}"
+                          "${address['city'] ?? ''}, ${address['state'] ?? ''}, ${address['country'] ?? ''} ${address['zipcode'] ?? ''}\n"
+                              "Lat: ${address['lattitude'] ?? ''}, Long: ${address['longitude'] ?? ''}"
                       ),
                     ),
                   );
