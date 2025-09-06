@@ -52,15 +52,3 @@ class CartController extends GetxController {
     });
   }
 }
-    cartItems.removeWhere((item) => item["productId"] == productId);
-  }
-
-  /// Calculate Total Price
-  double get totalPrice {
-    return cartItems.fold(0.0, (sum, item) {
-      double price = double.tryParse(item["productPrice"].toString()) ?? 0.0;
-      int qty = item["quantity"];
-      return sum + (price * qty);
-    });
-  }
-}

@@ -1,5 +1,5 @@
-
-
+import 'package:get/get.dart';
+import '../FirebaseController/cart_controller.dart';
 import '../../linker/linker.dart';
 
 class GridList extends StatefulWidget {
@@ -11,6 +11,8 @@ class GridList extends StatefulWidget {
 }
 
 class _GridListState extends State<GridList> {
+  final CartController cartController = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -25,6 +27,7 @@ class _GridListState extends State<GridList> {
           scrollDirection: Axis.vertical,
           itemCount: widget.products.length,
           itemBuilder: (context, index) {
+            final product = widget.products[index];
             return Container(
               // height: 260,
               // width: 150,
@@ -108,17 +111,23 @@ class _GridListState extends State<GridList> {
                   children: [
                     Image(image: AssetImage(AppIcons.carticon)),
                     TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CartScreen()));
-                        },
-                        child: BlackTextWidget(
-                          text: widget.products[index].cartprice,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                        )),
+                      onPressed: () {
+                        // Convert GridContainer to Map for cartController
+                        cartController.addToCart({
+                          "productId": product.productId ?? product.text, // fallback to text if no id
+                          "productName": product.text,
+                          "productPrice": double.tryParse(product.price.replaceAll(RegExp(r'[^\d.]'), '')) ?? 0.0,
+                          "productUnit": product.subtitle,
+                          "productImage": product.image,
+                        });
+                        Get.snackbar("Cart", "${product.text} added to cart");
+                      },
+                      child: BlackTextWidget(
+                        text: product.cartprice,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                      ),
+                    ),
                   ],
                 ),
               ]),
