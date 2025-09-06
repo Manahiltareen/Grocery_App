@@ -129,9 +129,9 @@ class AuthController extends GetxController {
   var phone = ''.obs;
   var userInfoList = <Map<String, dynamic>>[].obs;
 
-  // void changePassword({required String currentPassword, required String newPassword, required String confirmPassword}) {
-  //
-  // }
+  void changePassword({required String currentPassword, required String newPassword, required String confirmPassword}) {
+
+  }
 
   Future<void> fetchUserInfo() async {
     String? uid = _storage.read("uid");

@@ -37,6 +37,7 @@ dependencies:
   get_storage:
   geolocator: ^10.1.0
   geocoding: ^2.1.0
+  font_awesome_flutter: ^10.6.0
 
 
   # The following adds the Cupertino Icons font to your application.

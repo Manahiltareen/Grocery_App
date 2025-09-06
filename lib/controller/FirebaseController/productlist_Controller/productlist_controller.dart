@@ -32,7 +32,7 @@
 //
 // }
 //
-import 'package:firebase_cloud_firestore/firebase_cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class FirebaseController extends GetxController {
@@ -79,7 +79,7 @@ class FirebaseController extends GetxController {
           "productUnit": data["productUnit"] ?? "",
           "productPrice": data["productPrice"] ?? "",
           "catId" : data["catId"]  ?? "",
-          // "image": data["image"] ?? "",
+          "productImage": data["productImage"] ?? "",
         };
       }).toList();
     } catch (e) {
