@@ -7,16 +7,12 @@ import 'package:geocoding/geocoding.dart';
 class AddressController extends GetxController {
   var addressList = <Map<String, dynamic>>[].obs;
 
-  /// -----------------Fetch all addresses from Firestore
+  /// ----------------- save, update and Fetch all addresses from Firestore-------------------
   Future<void> fetchAddresses() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .collection('address')
-        .get();
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Users').doc(uid).collection('address').get();
 
     addressList.value = snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
@@ -25,29 +21,25 @@ class AddressController extends GetxController {
     }).toList();
   }
 
-  // Save current location address to Firestore
+
   Future<void> saveCurrentLocationAddress() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    // Request location permission
     LocationPermission permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
       return;
     }
 
-    // Get current position
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
 
-    // Reverse geocode
     List<Placemark> placemarks =
     await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemarks.first;
 
-    // Prepare data
     Map<String, dynamic> addressData = {
       'streetaddress': "${place.street ?? ''} ${place.subLocality ?? ''}".trim(),
       'zipcode': place.postalCode ?? '',
@@ -59,17 +51,16 @@ class AddressController extends GetxController {
       'status': true,
     };
 
-    // Save to Firestore
     await FirebaseFirestore.instance.collection('Users')
         .doc(uid)
         .collection('address')
         .add(addressData);
 
-    // Refresh list
+
     await fetchAddresses();
   }
 
-  // Update existing address
+
   Future<void> updateAddress(String docId, Map<String, dynamic> updatedData) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;

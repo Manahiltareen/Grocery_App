@@ -129,9 +129,9 @@ class AuthController extends GetxController {
   var phone = ''.obs;
   var userInfoList = <Map<String, dynamic>>[].obs;
 
-  void changePassword({required String currentPassword, required String newPassword, required String confirmPassword}) {
-    // Implement password change logic here
-  }
+  // void changePassword({required String currentPassword, required String newPassword, required String confirmPassword}) {
+  //
+  // }
 
   Future<void> fetchUserInfo() async {
     String? uid = _storage.read("uid");
@@ -140,7 +140,7 @@ class AuthController extends GetxController {
     if (doc.exists) {
       var userData = doc.data() as Map<String, dynamic>;
       userInfoList.value = [userData];
-      // Optionally update individual observables for backward compatibility
+
       username.value = userData["name"] ?? '';
       emailObs.value = userData["email"] ?? '';
       phone.value = userData["number"] ?? '';
