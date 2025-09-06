@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:groceryapp_with_firebase/controller/FirebaseController/address_contreoller.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/productlist_Controller/orderComtroller.dart';
 
 import 'package:groceryapp_with_firebase/controller/utils/constants/appcolors/app_theme.dart';
+import 'package:groceryapp_with_firebase/linker/linker.dart';
 import 'package:groceryapp_with_firebase/view/check_out/order_tracking_screen.dart';
 
 import 'package:groceryapp_with_firebase/view/check_out/select_payment_method_screen.dart';
@@ -36,6 +38,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final String _userAddress = 'Qabristan Altaf Colony';
   final String _userCity = 'Lahore';
   final OrderController controller = Get.put(OrderController());
+  final AddressController addressController = Get.put(AddressController());
+
+  @override
+  void initState() {
+    super.initState();
+    addressController.fetchAddresses();  // ✅ load pehle se stored addresses
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +131,121 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
+  // Widget _buildDeliveryAddressSection(BuildContext context) {
+  //   return Container(
+  //     padding: const EdgeInsets.all(20),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(16),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.black.withOpacity(0.08),
+  //           blurRadius: 20,
+  //           offset: const Offset(0, 4),
+  //         ),
+  //       ],
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Row(
+  //               children: [
+  //                 Icon(Icons.location_on_outlined,
+  //                     color: AppTheme.primaryColor, size: 20),
+  //                 const SizedBox(width: 8),
+  //                 Text(
+  //                   'Delivery Address',
+  //                   style: TextStyle(
+  //                     fontSize: 16,
+  //                     fontWeight: FontWeight.w600,
+  //                     color: AppTheme.textColor,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Container(
+  //               decoration: BoxDecoration(
+  //                 color: AppTheme.primaryColor.withOpacity(0.1),
+  //                 borderRadius: BorderRadius.circular(8),
+  //               ),
+  //               child: IconButton(
+  //                 icon: Icon(Icons.edit_outlined,
+  //                     color: AppTheme.primaryColor, size: 18),
+  //                 onPressed: () {
+  //                   showModalBottomSheet(
+  //                     context: context,
+  //                     isScrollControlled: true,
+  //                     backgroundColor: Colors.transparent,
+  //                     shape: const RoundedRectangleBorder(
+  //                       borderRadius:
+  //                           BorderRadius.vertical(top: Radius.circular(24)),
+  //                     ),
+  //                     builder: (context) => const PlaceTypeBottomSheet(),
+  //                   );
+  //                 },
+  //                 style: IconButton.styleFrom(
+  //                   padding: const EdgeInsets.all(8),
+  //                   minimumSize: Size.zero,
+  //                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 16),
+  //         Container(
+  //           padding: const EdgeInsets.all(12),
+  //           decoration: BoxDecoration(
+  //             color: const Color(0xFFF8F9FA),
+  //             borderRadius: BorderRadius.circular(12),
+  //             border: Border.all(color: Colors.grey.shade200),
+  //           ),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Text(
+  //                 _userAddress,
+  //                 style: TextStyle(
+  //                   fontSize: 14,
+  //                   fontWeight: FontWeight.w500,
+  //                   color: AppTheme.textColor,
+  //                 ),
+  //               ),
+  //               const SizedBox(height: 4),
+  //               Text(
+  //                 _userCity,
+  //                 style: TextStyle(
+  //                   fontSize: 13,
+  //                   color: AppTheme.lightTextColor,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         const SizedBox(height: 16),
+  //         _buildTextField('Delivery instructions/Alternate phone number',
+  //             'Add instructions...'),
+  //         const SizedBox(height: 16),
+  //         _buildToggleRow(
+  //           context,
+  //           'Change issues? You can ask the rider to top-up your wallet.',
+  //           _changeIssuesToggle,
+  //           (bool value) {
+  //             setState(() {
+  //               _changeIssuesToggle = value;
+  //             });
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget _buildDeliveryAddressSection(BuildContext context) {
+    final AddressController addressController = Get.find();
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -166,16 +289,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   icon: Icon(Icons.edit_outlined,
                       color: AppTheme.primaryColor, size: 18),
                   onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(24)),
-                      ),
-                      builder: (context) => const PlaceTypeBottomSheet(),
-                    );
+                    Get.to(AddAddressScreen());
+                    // showModalBottomSheet(
+                    //   context: context,
+                    //   isScrollControlled: true,
+                    //   backgroundColor: Colors.transparent,
+                    //   shape: const RoundedRectangleBorder(
+                    //     borderRadius:
+                    //     BorderRadius.vertical(top: Radius.circular(24)),
+                    //   ),
+                    //   builder: (context) => const PlaceTypeBottomSheet(),
+                    // );
                   },
                   style: IconButton.styleFrom(
                     padding: const EdgeInsets.all(8),
@@ -187,35 +311,50 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF8F9FA),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey.shade200),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _userAddress,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: AppTheme.textColor,
+
+          /// ✅ Address show with Obx
+          Obx(() {
+            if (addressController.addressList.isEmpty) {
+              return Text(
+                "No address saved yet",
+                style: TextStyle(color: AppTheme.lightTextColor, fontSize: 13),
+              );
+            }
+
+            // latest address (ya aap index 0 bhi le sakti ho)
+            final address = addressController.addressList.last;
+
+            return Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8F9FA),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    address["streetaddress"] ?? "",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: AppTheme.textColor,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _userCity,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: AppTheme.lightTextColor,
+                  const SizedBox(height: 4),
+                  Text(
+                    "${address["city"] ?? ""}, ${address["state"] ?? ""}, ${address["country"] ?? ""}",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: AppTheme.lightTextColor,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            );
+          }),
+
           const SizedBox(height: 16),
           _buildTextField('Delivery instructions/Alternate phone number',
               'Add instructions...'),
@@ -224,7 +363,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             context,
             'Change issues? You can ask the rider to top-up your wallet.',
             _changeIssuesToggle,
-            (bool value) {
+                (bool value) {
               setState(() {
                 _changeIssuesToggle = value;
               });
@@ -234,6 +373,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
+
 
   Widget _buildDeliveryInstructionsSection(BuildContext context) {
     return Container(

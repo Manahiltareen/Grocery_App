@@ -1,74 +1,101 @@
-import '../../../linker/linker.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../linker/linker.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/address_contreoller.dart';
 
-class AddressScreen extends StatefulWidget {
-  const AddressScreen({super.key});
+
+class AddAddressScreen extends StatefulWidget {
+  const AddAddressScreen({super.key});
 
   @override
-  State<AddressScreen> createState() => _AddressScreenState();
+  State<AddAddressScreen> createState() => _AddAddressScreenState();
 }
 
-class _AddressScreenState extends State<AddressScreen> {
-  final AddressController addressController = Get.put(AddressController());
+class _AddAddressScreenState extends State<AddAddressScreen> {
+  final addressController = Get.find<AddressController>();
 
-  @override
-  void initState() {
-    super.initState();
-    addressController.fetchAddresses();
-  }
+  final streetController = TextEditingController();
+  final cityController = TextEditingController();
+  final stateController = TextEditingController();
+  final countryController = TextEditingController();
+  final zipController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
-        title: BlackTextWidget(text: 'My Address', fontWeight: FontWeight.w600, fontSize: 18,),
+        title: BlackTextWidget(
+          text: 'Add New Address',
+          fontWeight: FontWeight.w600,
+          fontSize: 18,
+        ),
         centerTitle: true,
-        leading: Image(image: AssetImage(AppIcons.backicon), color: AppColors.blackColor,),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right:18.0),
-            child: Image(image: AssetImage(AppIcons.search2), color: AppColors.blackColor,),
-          ),
-        ],
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back, color: AppColors.blackColor),
+        ),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 20),
-          GreenTextButton(
-            text: 'Save Current Location Address',
-            ontap: () async {
-              await addressController.saveCurrentLocationAddress();
-            }
-          ),
-          SizedBox(height: 20),
-          Expanded(
-            child: Obx(() {
-              if (addressController.addressList.isEmpty) {
-                return Center(child: Text('No address found'));
-              }
-              return ListView.builder(
-                itemCount: addressController.addressList.length,
-                itemBuilder: (context, index) {
-                  final address = addressController.addressList[index];
-                  return Card(
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    child: ListTile(
-                      title: Text(address['streetaddress'] ?? ''),
-                      subtitle: Text(
-                          "${address['city'] ?? ''}, ${address['state'] ?? ''}, ${address['country'] ?? ''} ${address['zipcode'] ?? ''}\n"
-                              "Lat: ${address['lattitude'] ?? ''}, Long: ${address['longitude'] ?? ''}"
-                      ),
-                    ),
-                  );
-                },
-              );
-            }),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextFeildWidget(
+              hintext: "Street Address",
+              prefixIcons: Icons.home,
+              controller: streetController,
+              textInputType: TextInputType.text,
+              color: AppColors.lightredcolor,
+            ),
+            SizedBox(height: 10),
+            TextFeildWidget(
+              hintext: "City",
+              prefixIcons: Icons.location_city,
+              controller: cityController,
+              textInputType: TextInputType.text,
+              color: AppColors.lightredcolor,
+            ),
+            SizedBox(height: 10),
+            TextFeildWidget(
+              hintext: "State",
+              prefixIcons: Icons.map,
+              controller: stateController,
+              textInputType: TextInputType.text,
+              color: AppColors.lightredcolor,
+            ),
+            SizedBox(height: 10),
+            TextFeildWidget(
+              hintext: "Country",
+              prefixIcons: Icons.flag,
+              controller: countryController,
+              textInputType: TextInputType.text,
+              color: AppColors.lightredcolor,
+            ),
+            SizedBox(height: 10),
+            TextFeildWidget(
+              hintext: "Zip Code",
+              prefixIcons: Icons.local_post_office,
+              controller: zipController,
+              textInputType: TextInputType.number,
+              color: AppColors.lightredcolor,
+            ),
+            SizedBox(height: 20),
+            GreenTextButton(
+              text: "Save Address",
+              ontap: () async {
+                await addressController.addManualAddress(
+                  street: streetController.text.trim(),
+                  city: cityController.text.trim(),
+                  state: stateController.text.trim(),
+                  country: countryController.text.trim(),
+                  zipcode: zipController.text.trim(),
+                );
+                Navigator.pop(context); // wapas address list par
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-

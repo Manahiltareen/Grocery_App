@@ -69,5 +69,35 @@ class AddressController extends GetxController {
 
     await fetchAddresses();
   }
+  Future<void> addManualAddress({
+    required String street,
+    required String city,
+    required String state,
+    required String country,
+    required String zipcode,
+  }) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+
+    Map<String, dynamic> addressData = {
+      'streetaddress': street,
+      'zipcode': zipcode,
+      'city': city,
+      'state': state,
+      'country': country,
+      'lattitude': '',   // manual entry me lat/long blank reh skte hain
+      'longitude': '',
+      'status': false,   // manual wali default false rakhi
+    };
+
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .collection('address')
+        .add(addressData);
+
+    await fetchAddresses(); // list refresh ho jaye
+  }
+
 }
 

@@ -114,13 +114,14 @@ class _GridListState extends State<GridList> {
                       onPressed: () {
                         // Convert GridContainer to Map for cartController
                         cartController.addToCart({
-                          "productId": product.productId ?? product.text, // fallback to text if no id
+                          "productId": product.text ?? product.text, // fallback to text if no id
                           "productName": product.text,
                           "productPrice": double.tryParse(product.price.replaceAll(RegExp(r'[^\d.]'), '')) ?? 0.0,
                           "productUnit": product.subtitle,
                           "productImage": product.image,
                         });
                         Get.snackbar("Cart", "${product.text} added to cart");
+                        Get.to(CartScreen());
                       },
                       child: BlackTextWidget(
                         text: product.cartprice,

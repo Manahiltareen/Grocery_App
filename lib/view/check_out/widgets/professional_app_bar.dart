@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:groceryapp_with_firebase/controller/utils/constants/appcolors/app_theme.dart';
 
 import '../../../controller/utils/constants/responsive-text-size.dart';
@@ -233,8 +234,7 @@ class _ProfessionalAppBarState extends State<ProfessionalAppBar>
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: widget.onBackPressed ,
-              // ?? () => context.smoothBack(),
+          onTap: widget.onBackPressed ?? () => Get.back(),
           child: Container(
             padding: const EdgeInsets.all(8),
             child: Icon(
