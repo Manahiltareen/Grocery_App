@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/address_contreoller.dart';
+import 'package:groceryapp_with_firebase/controller/FirebaseController/cart_controller.dart';
+import 'package:groceryapp_with_firebase/controller/FirebaseController/payment_controller.dart';
 import 'package:groceryapp_with_firebase/controller/FirebaseController/productlist_Controller/orderComtroller.dart';
 
 import 'package:groceryapp_with_firebase/controller/utils/constants/appcolors/app_theme.dart';
 import 'package:groceryapp_with_firebase/linker/linker.dart';
+import 'package:groceryapp_with_firebase/model/credit_card_model/credit_card_model.dart';
 import 'package:groceryapp_with_firebase/view/check_out/order_tracking_screen.dart';
 
 import 'package:groceryapp_with_firebase/view/check_out/select_payment_method_screen.dart';
 import 'package:groceryapp_with_firebase/view/check_out/widgets/CheckoutTimeline.dart';
 import 'package:groceryapp_with_firebase/view/check_out/widgets/place_type_bottom_sheet.dart';
 import 'package:groceryapp_with_firebase/view/check_out/widgets/professional_app_bar.dart';
-
+import 'package:groceryapp_with_firebase/view/home_view/profile-screen/my_address_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final int currentStep;
@@ -39,11 +43,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final String _userCity = 'Lahore';
   final OrderController controller = Get.put(OrderController());
   final AddressController addressController = Get.put(AddressController());
+  final CartController cartController = Get.put(CartController());
 
   @override
   void initState() {
     super.initState();
-    addressController.fetchAddresses();  // ✅ load pehle se stored addresses
+    addressController.fetchAddresses(); // ✅ load pehle se stored addresses
   }
 
   @override
@@ -131,118 +136,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  // Widget _buildDeliveryAddressSection(BuildContext context) {
-  //   return Container(
-  //     padding: const EdgeInsets.all(20),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(16),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.black.withOpacity(0.08),
-  //           blurRadius: 20,
-  //           offset: const Offset(0, 4),
-  //         ),
-  //       ],
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Row(
-  //               children: [
-  //                 Icon(Icons.location_on_outlined,
-  //                     color: AppTheme.primaryColor, size: 20),
-  //                 const SizedBox(width: 8),
-  //                 Text(
-  //                   'Delivery Address',
-  //                   style: TextStyle(
-  //                     fontSize: 16,
-  //                     fontWeight: FontWeight.w600,
-  //                     color: AppTheme.textColor,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Container(
-  //               decoration: BoxDecoration(
-  //                 color: AppTheme.primaryColor.withOpacity(0.1),
-  //                 borderRadius: BorderRadius.circular(8),
-  //               ),
-  //               child: IconButton(
-  //                 icon: Icon(Icons.edit_outlined,
-  //                     color: AppTheme.primaryColor, size: 18),
-  //                 onPressed: () {
-  //                   showModalBottomSheet(
-  //                     context: context,
-  //                     isScrollControlled: true,
-  //                     backgroundColor: Colors.transparent,
-  //                     shape: const RoundedRectangleBorder(
-  //                       borderRadius:
-  //                           BorderRadius.vertical(top: Radius.circular(24)),
-  //                     ),
-  //                     builder: (context) => const PlaceTypeBottomSheet(),
-  //                   );
-  //                 },
-  //                 style: IconButton.styleFrom(
-  //                   padding: const EdgeInsets.all(8),
-  //                   minimumSize: Size.zero,
-  //                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         const SizedBox(height: 16),
-  //         Container(
-  //           padding: const EdgeInsets.all(12),
-  //           decoration: BoxDecoration(
-  //             color: const Color(0xFFF8F9FA),
-  //             borderRadius: BorderRadius.circular(12),
-  //             border: Border.all(color: Colors.grey.shade200),
-  //           ),
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               Text(
-  //                 _userAddress,
-  //                 style: TextStyle(
-  //                   fontSize: 14,
-  //                   fontWeight: FontWeight.w500,
-  //                   color: AppTheme.textColor,
-  //                 ),
-  //               ),
-  //               const SizedBox(height: 4),
-  //               Text(
-  //                 _userCity,
-  //                 style: TextStyle(
-  //                   fontSize: 13,
-  //                   color: AppTheme.lightTextColor,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         const SizedBox(height: 16),
-  //         _buildTextField('Delivery instructions/Alternate phone number',
-  //             'Add instructions...'),
-  //         const SizedBox(height: 16),
-  //         _buildToggleRow(
-  //           context,
-  //           'Change issues? You can ask the rider to top-up your wallet.',
-  //           _changeIssuesToggle,
-  //           (bool value) {
-  //             setState(() {
-  //               _changeIssuesToggle = value;
-  //             });
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
   Widget _buildDeliveryAddressSection(BuildContext context) {
     final AddressController addressController = Get.find();
 
@@ -289,17 +182,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   icon: Icon(Icons.edit_outlined,
                       color: AppTheme.primaryColor, size: 18),
                   onPressed: () {
-                    Get.to(AddAddressScreen());
-                    // showModalBottomSheet(
-                    //   context: context,
-                    //   isScrollControlled: true,
-                    //   backgroundColor: Colors.transparent,
-                    //   shape: const RoundedRectangleBorder(
-                    //     borderRadius:
-                    //     BorderRadius.vertical(top: Radius.circular(24)),
-                    //   ),
-                    //   builder: (context) => const PlaceTypeBottomSheet(),
-                    // );
+                    Get.to(MyAddressScreen());
                   },
                   style: IconButton.styleFrom(
                     padding: const EdgeInsets.all(8),
@@ -312,7 +195,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
           const SizedBox(height: 16),
 
-          /// ✅ Address show with Obx
+          ///  Address show with Obx
           Obx(() {
             if (addressController.addressList.isEmpty) {
               return Text(
@@ -321,7 +204,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               );
             }
 
-            // latest address (ya aap index 0 bhi le sakti ho)
             final address = addressController.addressList.last;
 
             return Container(
@@ -363,7 +245,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             context,
             'Change issues? You can ask the rider to top-up your wallet.',
             _changeIssuesToggle,
-                (bool value) {
+            (bool value) {
               setState(() {
                 _changeIssuesToggle = value;
               });
@@ -373,7 +255,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
-
 
   Widget _buildDeliveryInstructionsSection(BuildContext context) {
     return Container(
@@ -549,108 +430,135 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   Widget _buildPaymentMethodSection(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
+    final PaymentController paymentController = Get.put(PaymentController());
+    final String userId = GetStorage().read("uid");
+
+    return FutureBuilder<CardModel?>(
+      future: paymentController.getDefaultCard(userId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (!snapshot.hasData || snapshot.data == null) {
+          return Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  blurRadius: 20,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Text("No default payment method selected"),
+          );
+        }
+
+        final defaultCard = snapshot.data!;
+
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 20,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // 🔹 Header
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.credit_card_outlined,
-                      color: AppTheme.primaryColor, size: 20),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Payment Method',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.textColor,
+                  Row(
+                    children: [
+                      Icon(Icons.credit_card_outlined,
+                          color: AppTheme.primaryColor, size: 20),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Payment Method',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.textColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final selectedMethod = await Get.to(
+                        const CreditcardScreen(),
+                      );
+                      if (selectedMethod != null && selectedMethod is String) {
+                        setState(() {
+                          _currentPaymentMethodDisplay = selectedMethod;
+                        });
+                      }
+                    },
+                    child: Text(
+                      'Change',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: AppTheme.primaryColor,
+                      ),
                     ),
                   ),
                 ],
               ),
-              TextButton(
-                onPressed: () async {
-                  final selectedMethod = await Get.to(
-                    const SelectPaymentMethodScreen(),
-                  );
-                  if (selectedMethod != null && selectedMethod is String) {
-                    setState(() {
-                      _currentPaymentMethodDisplay = selectedMethod;
-                    });
-                  }
-                },
-                child: Text(
-                  'Change',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: AppTheme.primaryColor,
-                  ),
+              const SizedBox(height: 16),
+              // 🔹 Default Card Info
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF8F9FA),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade200),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF8F9FA),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey.shade200),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      _currentPaymentMethodDisplay == 'Cash'
-                          ? Icons.money_outlined
-                          : (_currentPaymentMethodDisplay.contains('Visa')
-                              ? Icons.credit_card_outlined
-                              : Icons.account_balance_wallet_outlined),
-                      color: AppTheme.primaryColor,
-                      size: 20,
+                    Row(
+                      children: [
+                        Icon(Icons.credit_card,
+                            color: AppTheme.primaryColor, size: 20),
+                        const SizedBox(width: 12),
+                        Text(
+                          "${defaultCard.cardType} - **** ${defaultCard.cardNumber.substring(defaultCard.cardNumber.length - 4)}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: AppTheme.textColor,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 12),
                     Text(
-                      _currentPaymentMethodDisplay.replaceAll('_', ' '),
+                      "Expiry: ${defaultCard.expiryDate}",
                       style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
                         color: AppTheme.textColor,
                       ),
                     ),
                   ],
                 ),
-                Text(
-                  '£592.14',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppTheme.textColor,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -809,9 +717,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12),
                   onTap: () async {
-                    // Get the OrderController instance
-                    // final orderController = Get.find<OrderController>();
-
                     // Show loading dialog
                     showDialog(
                       context: context,
@@ -827,34 +732,63 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     );
 
                     try {
-                      // Create order with customer details
-                      final result = await controller.createOrder(
-                        customerName:
-                            'John Doe', // You can get this from user input
-                        customerPhone:
-                            '+44 123 456 7890', // You can get this from user input
-                        deliveryAddress: '$_userAddress, $_userCity',
-                        paymentMethod: _currentPaymentMethodDisplay,
-                        notes: _leaveAtDoor ? 'Leave at door' : null,
-                      );
-
-                      // Hide loading dialog
-                      Navigator.pop(context);
-
-                         Get.to(OrderTrackingScreen());
-                        // Navigate to order tracking screen
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OrderTrackingScreen(),
+                      // Get selected address (last one as example)
+                      final address = addressController.addressList.isNotEmpty
+                          ? addressController.addressList.last
+                          : null;
+                      if (address == null) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Please add/select a delivery address.'),
+                            backgroundColor: Colors.red,
                           ),
                         );
-
-                    } catch (e) {
-                      // Hide loading dialog
+                        return;
+                      }
+                      // Get cart items
+                      final cartItems = cartController.cartItems
+                          .map((item) => Map<String, dynamic>.from(item))
+                          .toList();
+                      if (cartItems.isEmpty) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Your cart is empty.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                        return;
+                      }
+                      // Calculate total
+                      final totalAmount = cartController.totalPrice;
+                      // Place order
+                      final orderData = await controller.placeOrder(
+                        customerName: address["name"] ?? "",
+                        customerPhone: address["phone"] ?? "",
+                        deliveryAddress:
+                            "${address["streetaddress"] ?? ""}, ${address["city"] ?? ""}, ${address["state"] ?? ""}, ${address["country"] ?? ""}",
+                        paymentMethod: _currentPaymentMethodDisplay,
+                        totalAmount: totalAmount,
+                        items: cartItems,
+                        notes: _leaveAtDoor ? 'Leave at door' : null,
+                      );
                       Navigator.pop(context);
-
-                      // Show error message
+                      if (orderData["error"] != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Error placing order: ${orderData["error"]}'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                        return;
+                      }
+                      // Go to order tracking screen with orderData
+                      Get.to(() => OrderTrackingScreen(order: orderData));
+                    } catch (e) {
+                      Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Error placing order: $e'),
@@ -881,6 +815,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
+
   Widget _buildTextField(String label, String hint) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

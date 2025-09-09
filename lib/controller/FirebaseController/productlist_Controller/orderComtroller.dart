@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class OrderController extends GetxController {
   Future<Map<String, dynamic>> createOrder({
@@ -10,15 +11,10 @@ class OrderController extends GetxController {
     String? notes,
   }) async {
     try {
-      // Fake delay jese API call hoti hai
       await Future.delayed(Duration(seconds: 1));
 
-      // Dummy order data
       final dummyOrder = {
-        "orderId": DateTime
-            .now()
-            .millisecondsSinceEpoch
-            .toString(),
+        "orderId": DateTime.now().millisecondsSinceEpoch.toString(),
         "customerName": customerName,
         "customerPhone": customerPhone,
         "deliveryAddress": deliveryAddress,
@@ -36,6 +32,42 @@ class OrderController extends GetxController {
       return {
         "error": "Failed to create order: $e",
       };
+    }
+  }
+
+  Future<Map<String, dynamic>> placeOrder({
+    required String customerName,
+    required String customerPhone,
+    required String deliveryAddress,
+    required String paymentMethod,
+    required double totalAmount,
+    required List<Map<String, dynamic>> items,
+    String? notes,
+  }) async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) throw Exception('User not logged in');
+      final orderId = DateTime.now().millisecondsSinceEpoch.toString();
+      final orderData = {
+        "orderId": orderId,
+        "userId": uid,
+        "customerName": customerName,
+        "customerPhone": customerPhone,
+        "deliveryAddress": deliveryAddress,
+        "paymentMethod": paymentMethod, // store selected payment method
+        "totalAmount": totalAmount,
+        "items": items,
+        "notes": notes ?? "No notes",
+        "status": "Pending",
+        "createdAt": DateTime.now().toIso8601String(),
+      };
+      await FirebaseFirestore.instance
+          .collection('orders')
+          .doc(orderId)
+          .set(orderData);
+      return orderData;
+    } catch (e) {
+      return {"error": e.toString()};
     }
   }
 
@@ -266,7 +298,6 @@ class OrderController extends GetxController {
   //     // _isProcessingOrder.value = false;
   //   }
   // }
-
 
   // // Get order by ID
   // Future<RepositoryResult<Order>> getOrderById(String orderId) async {
